@@ -1,7 +1,12 @@
 
+
 function page() {
     return (
-        <h1>Cabins </h1>
+        <div className="">
+
+            <h1>Cabins </h1>
+        </div>
+
     )
 }
 

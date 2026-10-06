@@ -1,7 +1,12 @@
 
+
 function page() {
     return (
-        <h1>Your Account </h1>
+        <div className="">
+
+            <h1>Your Account </h1>
+        </div>
+
     )
 }
 

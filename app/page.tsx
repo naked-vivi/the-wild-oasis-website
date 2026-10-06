@@ -1,7 +1,13 @@
+import Link from "next/link";
 
 export default function page() {
   return (
-    <h1>Welcome to The Wild Oasis</h1>
+    <div className="">
+
+      <h1>The Wild Oasis. Welcome to Paradise.</h1>
+      <Link href="/cabins">Explore luxury cabins</Link>
+    </div>
+
   )
 }
 
