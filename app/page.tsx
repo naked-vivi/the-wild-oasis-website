@@ -1,7 +1,7 @@
 
 export default function page() {
   return (
-    <h1>page</h1>
+    <h1>Welcome to The Wild Oasis</h1>
   )
 }
 
