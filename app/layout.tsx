@@ -18,10 +18,10 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html>
-      <body className={`${josefin.className} text-gray-50 min-h-screen bg-primary-950 flex flex-col`}>
+    <html lang="en">
+      <body className={`${josefin.className} relative isolate text-gray-50 min-h-svh bg-primary-950 flex flex-col`}>
         <Header />
-        <div className="flex-1 px-8 py-12">
+        <div className="flex-1 px-4 py-6 sm:px-8 sm:py-12">
           <main className="mx-auto">
           {children}
         </main>
