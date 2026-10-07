@@ -138,10 +138,35 @@ export async function getSettings() {
 export async function getCountries(): Promise<Country[]> {
   try {
     const res = await fetch(
-      'https://restcountries.com/v2/all?fields=name,flag'
+      'https://flagcdn.com/en/codes.json',
+      { next: { revalidate: 86400 } }
     );
-    const countries: Country[] = await res.json();
-    return countries;
+    if (!res.ok) throw new Error(`Countries request failed: ${res.status}`);
+
+    const countryNames: unknown = await res.json();
+    if (
+      !countryNames ||
+      typeof countryNames !== 'object' ||
+      Array.isArray(countryNames)
+    ) {
+      throw new Error('Invalid countries response');
+    }
+
+    const entries: [string, unknown][] = Object.entries(countryNames);
+    const countries: Country[] = [];
+    for (const [code, name] of entries) {
+      if (typeof name !== 'string' || !name.trim()) {
+        throw new Error('Invalid country name');
+      }
+
+      // The feed also includes U.S. states and organization flags.
+      if (/^[a-z]{2}$/.test(code) && code !== 'eu' && code !== 'un') {
+        countries.push({ name, flag: `https://flagcdn.com/w40/${code}.png` });
+      }
+    }
+
+    if (!countries.length) throw new Error('No countries returned');
+    return countries.sort((a, b) => a.name.localeCompare(b.name, 'en'));
   } catch {
     throw new Error('Could not fetch countries');
   }
