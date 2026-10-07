@@ -1,5 +1,5 @@
 import { UsersIcon } from "lucide-react"
-import { Cabin } from "../cabins/page";
+import type { Cabin } from "@/app/_lib/types";
 import Image from "next/image";
 
 interface CabinCardProps {

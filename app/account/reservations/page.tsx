@@ -1,8 +1,9 @@
-import ReservationCard from "./ReservationCard";
+import ReservationCard from "@/app/_components/reservation-card"
+import type { Booking } from "@/app/_lib/types";
 
 export default function Page() {
   // CHANGE
-  const bookings = [];
+  const bookings: Booking[] = [];
 
   return (
     <div>

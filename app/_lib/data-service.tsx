@@ -1,4 +1,5 @@
 import { eachDayOfInterval } from 'date-fns';
+import type { Country } from '@/app/_lib/types';
 
 /////////////
 // GET
@@ -134,12 +135,12 @@ export async function getSettings() {
   return data;
 }
 
-export async function getCountries() {
+export async function getCountries(): Promise<Country[]> {
   try {
     const res = await fetch(
       'https://restcountries.com/v2/all?fields=name,flag'
     );
-    const countries = await res.json();
+    const countries: Country[] = await res.json();
     return countries;
   } catch {
     throw new Error('Could not fetch countries');

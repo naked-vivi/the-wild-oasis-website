@@ -1,18 +1,9 @@
 import CabinCard from "@/app/_components/cabin-card";
+import type { Cabin } from "@/app/_lib/types";
 
 export const metadata = {
     title: "Cabins"
 }
-export interface Cabin {
-    id: number;
-    name: string;
-    maxCapacity: number;
-    regularPrice: number;
-    discount: number;
-    description?: string;
-    image: string;
-}
-
 export default function Page() {
     // CHANGE
     const cabins: Cabin[] = [];
