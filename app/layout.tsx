@@ -2,6 +2,14 @@ import type { ReactNode } from "react";
 import Navigation from "./_components/navigation";
 import Logo from "./_components/Logo";
 import "@/app/_styles/globals.css";
+import { Josefin_Sans } from "next/font/google";
+
+const josefin = Josefin_Sans({
+  subsets: ['latin'],
+  display: "swap"
+})
+
+console.log(josefin)
 
 export const metadata = {
   title: {
@@ -14,7 +22,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html>
-      <body className="text-gray-50 min-h-screen bg-blue-700">
+      <body className={`${josefin.className} text-gray-50 min-h-screen bg-blue-700`}>
         <header>
           <Logo />
           <Navigation />
@@ -26,6 +34,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Copyright by The Wild Oasis
         </footer>
       </body>
-    </html>
+    </html >
   );
 }
