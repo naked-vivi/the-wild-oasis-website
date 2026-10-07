@@ -1,4 +1,4 @@
-import Navigation from '@/app/_components/Navigation';
+import Navigation from '@/app/_components/navigation';
 import Logo from '@/app/_components/Logo';
 
 function Header() {
