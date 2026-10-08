@@ -1,10 +1,11 @@
 import { eachDayOfInterval } from 'date-fns';
 import type { Country } from '@/app/_lib/types';
+import { supabase } from './supabase';
 
 /////////////
 // GET
 
-export async function getCabin(id:number) {
+export async function getCabin(id: number) {
   const { data, error } = await supabase
     .from('cabins')
     .select('*')
@@ -21,7 +22,7 @@ export async function getCabin(id:number) {
   return data;
 }
 
-export async function getCabinPrice(id:number) {
+export async function getCabinPrice(id: number) {
   const { data, error } = await supabase
     .from('cabins')
     .select('regularPrice, discount')
@@ -50,7 +51,7 @@ export const getCabins = async function () {
 };
 
 // Guests are uniquely identified by their email address
-export async function getGuest(email:string) {
+export async function getGuest(email: string) {
   const { data, error } = await supabase
     .from('guests')
     .select('*')
@@ -61,7 +62,7 @@ export async function getGuest(email:string) {
   return data;
 }
 
-export async function getBooking(id:number) {
+export async function getBooking(id: number) {
   const { data, error, count } = await supabase
     .from('bookings')
     .select('*')
@@ -76,7 +77,7 @@ export async function getBooking(id:number) {
   return data;
 }
 
-export async function getBookings(guestId:number) {
+export async function getBookings(guestId: number) {
   const { data, error, count } = await supabase
     .from('bookings')
     // We actually also need data on the cabins as well. But let's ONLY take the data that we actually need, in order to reduce downloaded data.
@@ -94,7 +95,7 @@ export async function getBookings(guestId:number) {
   return data;
 }
 
-export async function getBookedDatesByCabinId(cabinId:number) {
+export async function getBookedDatesByCabinId(cabinId: number) {
   let today = new Date();
   today.setUTCHours(0, 0, 0, 0);
   today = today.toISOString();
