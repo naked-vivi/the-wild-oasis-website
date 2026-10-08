@@ -1,12 +1,12 @@
 import CabinCard from "@/app/_components/cabin-card";
-import type { Cabin } from "@/app/_lib/types";
+import { getCabins } from "../_lib/data-service";
+import type { Cabin } from "../_lib/types";
 
 export const metadata = {
     title: "Cabins"
 }
-export default function Page() {
-    // CHANGE
-    const cabins: Cabin[] = [];
+export default async function Page() {
+    const cabins: Cabin[] = await getCabins();
 
     return (
         <div className="mx-auto w-full max-w-7xl">

@@ -11,12 +11,14 @@ function CabinCard({ cabin }: CabinCardProps) {
 
   return (
     <div className="flex border-primary-800 border">
-      <Image
-        src={image}
-        alt={`Cabin ${name}`}
-        className="flex-1 border-r border-primary-800"
-      />
-
+      <div className="flex-1 relative">
+        <Image
+          fill
+          src={image}
+          alt={`Cabin ${name}`}
+          className="object-cover border-r border-primary-800"
+        />
+      </div>
       <div className="grow">
         <div className="pt-5 pb-4 px-7 bg-primary-950">
           <h3 className="text-accent-500 font-semibold text-2xl mb-3">
