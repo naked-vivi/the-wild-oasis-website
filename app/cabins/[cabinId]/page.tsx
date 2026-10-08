@@ -1,14 +1,21 @@
 import { getCabin } from "@/app/_lib/data-service";
 import { SlashIcon, MapPinIcon, UsersIcon } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 
 interface CabinPageProps {
-    params: Promise<{ cabinId: number }>
+    params: Promise<{ cabinId: string }>
+}
+
+export async function generateMetadata({ params }: CabinPageProps): Promise<Metadata> {
+    const { cabinId } = await params;
+    const { name } = await getCabin(Number(cabinId));
+    return { title: `Cabin ${name}` }
 }
 
 export default async function Page({ params }: CabinPageProps) {
     const { cabinId } = await params;
-    const cabin = await getCabin(cabinId);
+    const cabin = await getCabin(Number(cabinId));
 
     const { id, name, maxCapacity, regularPrice, discount, image, description } = cabin;
 
