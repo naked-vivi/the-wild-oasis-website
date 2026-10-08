@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className={`${josefin.className} relative isolate text-gray-50 min-h-svh bg-primary-950 flex flex-col`}>
         <Header />
-        <div className="flex-1 px-4 py-6 sm:px-8 sm:py-12">
+        <div className="flex-1 px-4 py-4 sm:px-8 sm:py-12">
           <main className="mx-auto">
           {children}
         </main>
