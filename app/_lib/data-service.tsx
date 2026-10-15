@@ -1,5 +1,5 @@
 import { eachDayOfInterval } from 'date-fns';
-import type { Country } from '@/app/_lib/types';
+import type { Country, NewBooking, NewGuest } from '@/app/_lib/types';
 import { supabase } from './supabase';
 import { notFound } from 'next/navigation';
 
@@ -98,16 +98,16 @@ export async function getBookings(guestId: number) {
 }
 
 export async function getBookedDatesByCabinId(cabinId: number) {
-  let today = new Date();
+  const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
-  today = today.toISOString();
+  const todayISO = today.toISOString();
 
   // Getting all bookings
   const { data, error } = await supabase
     .from('bookings')
     .select('*')
     .eq('cabinId', cabinId)
-    .or(`startDate.gte.${today},status.eq.checked-in`);
+    .or(`startDate.gte.${todayISO},status.eq.checked-in`);
 
   if (error) {
     console.error(error);
@@ -178,7 +178,7 @@ export async function getCountries(): Promise<Country[]> {
 /////////////
 // CREATE
 
-export async function createGuest(newGuest) {
+export async function createGuest(newGuest: NewGuest) {
   const { data, error } = await supabase.from('guests').insert([newGuest]);
 
   if (error) {
@@ -189,7 +189,7 @@ export async function createGuest(newGuest) {
   return data;
 }
 
-export async function createBooking(newBooking) {
+export async function createBooking(newBooking: NewBooking) {
   const { data, error } = await supabase
     .from('bookings')
     .insert([newBooking])
@@ -209,7 +209,7 @@ export async function createBooking(newBooking) {
 // UPDATE
 
 // The updatedFields is an object which should ONLY contain the updated data
-export async function updateGuest(id, updatedFields) {
+export async function updateGuest(id: number, updatedFields: Partial<NewGuest>) {
   const { data, error } = await supabase
     .from('guests')
     .update(updatedFields)
@@ -224,7 +224,7 @@ export async function updateGuest(id, updatedFields) {
   return data;
 }
 
-export async function updateBooking(id, updatedFields) {
+export async function updateBooking(id: number, updatedFields: Partial<NewBooking>) {
   const { data, error } = await supabase
     .from('bookings')
     .update(updatedFields)
@@ -242,7 +242,7 @@ export async function updateBooking(id, updatedFields) {
 /////////////
 // DELETE
 
-export async function deleteBooking(id) {
+export async function deleteBooking(id: number) {
   const { data, error } = await supabase.from('bookings').delete().eq('id', id);
 
   if (error) {

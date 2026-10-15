@@ -26,3 +26,16 @@ export interface Country {
   name: string;
   flag: string;
 }
+
+export interface NewGuest {
+  fullName: string;
+  email: string;
+  nationality?: string;
+  countryFlag?: string;
+  nationalID?: string;
+}
+
+// Insert data excludes database-generated fields and the joined cabin data.
+export type NewBooking = Omit<Booking, "id" | "created_at" | "cabins"> & {
+  observations?: string;
+};

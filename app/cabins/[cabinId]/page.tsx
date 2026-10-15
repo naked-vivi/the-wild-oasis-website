@@ -1,4 +1,4 @@
-import { getCabin } from "@/app/_lib/data-service";
+import { getCabin, getCabins } from "@/app/_lib/data-service";
 import { SlashIcon, MapPinIcon, UsersIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -11,6 +11,12 @@ export async function generateMetadata({ params }: CabinPageProps): Promise<Meta
     const { cabinId } = await params;
     const { name } = await getCabin(Number(cabinId));
     return { title: `Cabin ${name}` }
+}
+
+export async function generateStaticParams(): Promise<{ cabinId: string }[]> {
+    const cabins = await getCabins();
+    const ids = cabins.map((cabin) => ({ cabinId: String(cabin.id) }))
+    return ids;
 }
 
 export default async function Page({ params }: CabinPageProps) {
