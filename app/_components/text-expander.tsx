@@ -1,7 +1,13 @@
+"use client"
 import { useState } from 'react';
 
-function TextExpander({ children }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+interface TextExpanderProps {
+  children: string;
+}
+
+export default function TextExpander({ children }: TextExpanderProps) {
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
   const displayText = isExpanded
     ? children
     : children.split(' ').slice(0, 40).join(' ') + '...';
@@ -10,7 +16,8 @@ function TextExpander({ children }) {
     <span>
       {displayText}{' '}
       <button
-        className='text-primary-700 border-b border-primary-700 leading-3 pb-1'
+        type="button"
+        className='text-primary-700 border-b border-primary-700 leading-3 pb-1 cursor-pointer'
         onClick={() => setIsExpanded(!isExpanded)}
       >
         {isExpanded ? 'Show less' : 'Show more'}
@@ -18,5 +25,3 @@ function TextExpander({ children }) {
     </span>
   );
 }
-
-export default TextExpander;

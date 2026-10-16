@@ -1,12 +1,18 @@
 import Image from "next/image";
 import about1 from "@/public/about-1.jpg"
 import about2 from "@/public/about-2.jpg"
+import { getCabins } from "../_lib/data-service";
+import Link from "next/link";
 
 export const metadata = {
     title: "About"
 }
 
-export default function Page() {
+export const revalidate = 86400;
+
+export default async function Page() {
+    const cabins = await getCabins();
+
     return (
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-y-10 text-base leading-relaxed sm:gap-y-16 sm:text-lg lg:grid-cols-5 lg:gap-x-12 lg:gap-y-24 xl:gap-x-24">
             <div className="min-w-0 lg:col-span-3">
@@ -23,7 +29,7 @@ export default function Page() {
                         simple pleasures with family.
                     </p>
                     <p>
-                        Our 8 luxury cabins provide a cozy base, but the real freedom and
+                        Our {cabins.length} luxury cabins provide a cozy base, but the real freedom and
                         peace you&apos;ll find in the surrounding mountains. Wander through lush
                         forests, breathe in the fresh air, and watch the stars twinkle above
                         from the warmth of a campfire or your hot tub.
@@ -76,12 +82,12 @@ export default function Page() {
                     </p>
 
                     <div>
-                        <a
+                        <Link
                             href="/cabins"
                             className="mt-4 inline-flex min-h-12 w-full items-center justify-center bg-accent-500 px-5 py-4 text-center text-base font-semibold text-primary-800 transition-colors hover:bg-accent-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-300 sm:w-auto sm:px-8 sm:py-5 sm:text-lg"
                         >
                             Explore our luxury cabins
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
