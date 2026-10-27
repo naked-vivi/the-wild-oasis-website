@@ -1,13 +1,23 @@
 import { Suspense } from "react";
 import CabinList from "../_components/ui/cabin-list";
 import Spinner from "../_components/spinner";
+import Filter from "../_components/filter";
 
 export const revalidate = 3600;
 
 export const metadata = {
     title: "Cabins"
 }
-export default function Page() {
+
+interface PageProps {
+    searchParams: Promise<{
+        capacity?: string | string[];
+    }>;
+}
+
+export default async function Page({ searchParams }: PageProps) {
+    const { capacity } = await searchParams;
+    const filter = typeof capacity === "string" ? capacity : "all";
     return (
         <div className="mx-auto w-full max-w-7xl">
             <h1 className="mb-4 text-3xl leading-tight text-accent-400 font-medium sm:mb-5 sm:text-4xl">
@@ -22,8 +32,13 @@ export default function Page() {
                 to paradise.
             </p>
 
-            <Suspense fallback={<Spinner />}>
-                <CabinList />
+            <div className="flex justify-end mb-8">
+                <Filter />
+            </div>
+
+
+            <Suspense fallback={<Spinner />} key={filter}>
+                <CabinList filter={filter} />
             </Suspense>
 
         </div>
